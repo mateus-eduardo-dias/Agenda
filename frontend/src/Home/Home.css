@@ -1,4 +1,4 @@
-h1 {
+main h1 {
     text-align: center;
     margin-bottom: 0;
 }
@@ -20,7 +20,7 @@ button {
     border: 3px black solid;
     border-radius: 10px;
     padding: 10px 20px 10px 10px;
-    min-width: 45vw;
+    width: 80vw;
 }
 
 .card-container > h2 {
@@ -28,6 +28,11 @@ button {
     align-self: center;
     padding-left: 20px;
     flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.card-container p {
+    font-size: 22px;
 }
 
 #dashboard {
@@ -43,4 +48,20 @@ button {
 #dashboard:hover {
     cursor: pointer;
     background-color: var(--alternative-color);
+}
+
+@media (min-width: 1024px) {
+    .card-container {
+        width: 40vw;
+    }
+}
+@media (min-width: 1440px) {
+    .card-container {
+        width: 25vw;
+    }
+}
+@media (min-width: 2000px) {
+    .card-container {
+        width: 20vw;
+    }
 }

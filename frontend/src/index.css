@@ -30,13 +30,12 @@ header {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
 }
 
 header h1 {
     color: var(--secondary-color);
     font-family: sans-serif, 'Arial';
-    align-self: center;
     padding-left: 10px;
 }
 
