@@ -7,6 +7,10 @@
     --alternative3-color: #919084;
 }
 
+a {
+    text-decoration: none;
+}
+
 header, body {
     margin: 0;
 }
@@ -37,6 +41,11 @@ header h1 {
     color: var(--secondary-color);
     font-family: sans-serif, 'Arial';
     padding-left: 10px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
 }
 
 header ul {
@@ -72,7 +81,6 @@ footer p {
 
 footer a {
     color: #0000ff;
-    text-decoration: none;
 }
 footer a:visited {
     color: #0055bb;
