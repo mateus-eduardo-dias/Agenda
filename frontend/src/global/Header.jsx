@@ -1,20 +1,22 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function Header() {
     return(
     <header>
-        <h1 className="header">Agenda</h1>
+        <Link to="/" className="no-decoration">
+        <h1>Agenda</h1>
+        </Link>
         <nav>
             <ul>
-                <NavLink to="/dashboard">
-                <li>Dashboard</li>
-                </NavLink>
-                <NavLink to="/about">
-                <li>About</li>
-                </NavLink>
-                <NavLink to="/contact">
-                <li>Contact</li>
-                </NavLink>
+                
+                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                
+                
+                <li><NavLink to="/about">About</NavLink></li>
+                
+                
+                <li><NavLink to="/contact">Contact</NavLink></li>
+                
             </ul>
         </nav>
     </header>

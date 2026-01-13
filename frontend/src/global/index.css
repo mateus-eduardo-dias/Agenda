@@ -5,6 +5,8 @@
     --alternative-color: #00ffff;
     --alternative2-color: #00aaff;
     --alternative3-color: #919084;
+    --footer-color: #0000ff;
+    --footer-visited-color: #0055bb;
 }
 
 a {
@@ -42,6 +44,9 @@ header h1 {
     font-family: sans-serif, 'Arial';
     padding-left: 10px;
 }
+.no-decoration:hover {
+    text-decoration: none;
+}
 
 header nav {
     display: flex;
@@ -55,15 +60,17 @@ header ul {
     flex-wrap: wrap;
     gap: 25px;
 }
-header ul li {
-    color: white;
+header a {
+    color: var(--secondary-color);
     font-family: Arial, Helvetica, sans-serif;
 }
-header ul li:hover {
+header a:hover {
     cursor: pointer;
     text-decoration:underline;
 }
-
+a.active {
+    color:var(--tertiary-color);
+}
 
 
 footer {
@@ -80,10 +87,10 @@ footer p {
 }
 
 footer a {
-    color: #0000ff;
+    color: var(--footer-color);
 }
 footer a:visited {
-    color: #0055bb;
+    color: var(--footer-visited-color);
 }
 footer a:hover {
     text-decoration: underline;
