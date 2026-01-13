@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import './index.css'
-import ErrorElement from './errorElement.jsx'
+import './global/index.css'
+import ErrorElement from './global/errorElement.jsx'
 import Home from './Home/Home.jsx'
-import NotFoundPage from './NotFoundPage.jsx'
+import NotFoundPage from './global/NotFoundPage.jsx'
 import RootLayout from './RootLayout.jsx'
 
 const router = createBrowserRouter([
