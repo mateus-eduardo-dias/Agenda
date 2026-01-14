@@ -3,11 +3,15 @@ import router from './routes/index.js'
 import {fileURLToPath} from 'url'
 import {dirname, join} from 'path'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 
 const app = express();
 app.use(cors({origin: true}));
+app.use(cookieParser('Agenda'));
+app.use(bodyParser.urlencoded({extended:true}))
 
-app.use('/api', router);
+app.use('/api/v1', router);
 
 const dist = join(dirname(dirname(dirname(fileURLToPath(import.meta.url)))), 'frontend', 'dist');
 

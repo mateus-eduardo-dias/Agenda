@@ -7,11 +7,19 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start:dev": "node server.js"
+    "dev": "node server.js"
   },
   "dependencies": {
+    "body-parser": "^2.2.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.17.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0"
   }
 }
