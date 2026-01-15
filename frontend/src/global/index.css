@@ -37,6 +37,8 @@ header {
     justify-content: flex-start;
     flex-wrap: wrap;
     align-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 header h1 {
@@ -51,6 +53,7 @@ header h1 {
 header nav {
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 header ul {
@@ -59,6 +62,37 @@ header ul {
     align-items: center;
     flex-wrap: wrap;
     gap: 25px;
+    padding-left: 10px;
+}
+header div{
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+@keyframes hover-button {
+    0% {
+        background-color: var(--primary-color);
+        color: var(--secondary-color)
+    }
+    100% {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+    }
+}
+header button:hover {
+    cursor: pointer;
+    animation-name: hover-button;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+header button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 5px 10px;
 }
 header a {
     color: var(--secondary-color);

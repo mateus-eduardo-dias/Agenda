@@ -8,17 +8,14 @@ export default function Header() {
         </Link>
         <nav>
             <ul>
-                
                 <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-                
-                
                 <li><NavLink to="/about">About</NavLink></li>
-                
-                
                 <li><NavLink to="/contact">Contact</NavLink></li>
-                
             </ul>
         </nav>
+        <div>
+            <Link to="/login"><button className="fira-sans-regular">Log In</button></Link>
+        </div>
     </header>
     );
 }

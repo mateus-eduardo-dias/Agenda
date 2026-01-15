@@ -1,4 +1,4 @@
-import authServices from '../services/auth.services.js'
+import {createClient, findRefreshToken} from '../services/auth.service.js'
 
 export async function verifyAuth(req, res, next) {
     const {refreshToken} = req.signedCookies;
@@ -7,6 +7,6 @@ export async function verifyAuth(req, res, next) {
         return;
     }
 
-    const client = await authServices.createClient();
-    const request = await authServices.findRefreshToken(client);
+    const client = await createClient();
+    const request = await findRefreshToken(client);
 }
