@@ -1,9 +1,11 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import './Register.css'
 
 export default function Register() {
+
+    const error = useActionData();
 
     const [showPassword, setShowPassword] = useState(false);
 

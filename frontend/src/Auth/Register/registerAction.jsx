@@ -1,3 +1,5 @@
+import { redirect } from "react-router-dom";
+
 export async function registerAction({request}) {
     const formData = await request.formData();
     const userInput = {
@@ -5,5 +7,11 @@ export async function registerAction({request}) {
         password: formData.get('password'),
         cpassword: formData.get('cpassword'),
     }
-    console.log(userInput)
+    
+    const res = await fetch('/api/v1/register', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: userInput})
+    console.log(res.status);
+    const data = await res.json();
+    console.log(data);
+    return redirect('/request-made')
+
 }
