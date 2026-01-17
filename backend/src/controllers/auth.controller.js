@@ -1,9 +1,9 @@
-import { checkAuthInput, generateRefreshToken, generateAccessToken, hashPassword, encryptValue } from '../utils/auth.util.js'
+import { checkAuthInput, generateRefreshToken, generateAccessToken, encryptValue, hashPassword } from '../utils/auth.util.js'
 import { createClient, createUser, storeRefreshToken } from '../services/auth.service.js';
 
-export default async function register(req, res) {
+export async function register(req, res) {
     // Validação de input
-    const inputValidation = checkAuthInput(req.body);
+    const inputValidation = checkAuthInput(req.body, true);
     if (!inputValidation.valid) {
         res.status(400).send({errors: inputValidation.errors});
         return;
@@ -22,38 +22,49 @@ export default async function register(req, res) {
 
     const email_enc = encryptValue(body_trim.email);
     if (!email_enc.status) {
+        client.release()
         res.status(500).send({errors:[email_enc.error]})
+        return;
     }
     const fname_enc = encryptValue(body_trim.firstName);
     if (!fname_enc.status) {
+        client.release()
         res.status(500).send({errors:[fname_enc.error]})
+        return;
     }
     const lname_enc = encryptValue(body_trim.lastName);
     if (!lname_enc.status) {
+        client.release()
         res.status(500).send({errors:[lname_enc.error]})
+        return;
     }
 
-    const hashPassword = await hashPassword(req.body.password)
-    if (!hashPassword.status) {
-        res.status(500).send({errors:[`Failed to authenticate - HP-${hashPassword.error}`]})
+    const pass_enc = await hashPassword(req.body.password)
+    if (!pass_enc.status) {
+        client.release()
+        res.status(500).send({errors:[`Failed to authenticate - HP-${pass_enc.error}`]})
         return;
     }
     
-    const user = await createUser(client, fname_enc.encrypted, lname_enc.encrypted, email_enc.encrypted, hashPassword.hash)
+    const user = await createUser(client, fname_enc.encrypted, lname_enc.encrypted, email_enc.encrypted, pass_enc.hash)
     if (!user.status) {
         const scode = user.expected ? 409 : 500;
+        client.release()
         res.status(scode).send({errors: [user.error]});
         return;
     }
 
     // Gerar tokens e resposta
 
-    const now = Date.now()
-    const refTknExp = now + 2592000
-    const accTknExp = now + 600
+    const now_seconds = Date.now() / 1000
+    const refTknExp = now_seconds + 2592000
+    const accTknExp = now_seconds + 600
 
-    const accessToken = generateAccessToken(user.row.id, user.row.email, accTknExp);
+    console.log(user.row.id)
+    console.log(body_trim.email)
+    const accessToken = generateAccessToken(user.row.id, body_trim.email, accTknExp);
     if (!accessToken.status) {
+        console.log(accessToken.error)
         res.status(500).send({errors: ['Account created but not authenticated, log in to access your account']})
         return;
     }
@@ -70,10 +81,13 @@ export default async function register(req, res) {
     } while (!storeToken.status && storeToken.expected);
 
     const date = new Date()
-    date.setTime(refTknExp)
-    res.cookie('refreshToken', refreshToken, {signed: true, sameSite:'strict', httpOnly:true, expires: date.toUTCString(), secure: process.env.NODE_ENV == 'production' ? true : false});
-    res.cookie('uid', user.row.id, {sameSite:'strict', expires: date.toUTCString()})
-    date.setTime(accTknExp)
-    res.cookie('accessToken', accessToken.token, {signed: true, sameSite:'strict', httpOnly:true, expires: date.toUTCString(), secure: process.env.NODE_ENV == 'production' ? true : false});
+    date.setTime(refTknExp * 1000)
+    res.cookie('refreshToken', refreshToken, {signed: true, sameSite:'strict', httpOnly:true, expires: date, secure: process.env.NODE_ENV == 'production' ? true : false});
+    res.cookie('uid', user.row.id, {sameSite:'strict', expires: date})
+    res.cookie('fname', body_trim.firstName, {sameSite:'strict', expires: date})
+    res.cookie('lname', body_trim.lastName, {sameSite:'strict', expires: date})
+    res.cookie('email', body_trim.email, {sameSite:'strict', expires: date})
+    date.setTime(accTknExp * 1000)
+    res.cookie('accessToken', accessToken.token, {signed: true, sameSite:'strict', httpOnly:true, expires: date, secure: process.env.NODE_ENV == 'production' ? true : false});
     res.status(201).end()
 }

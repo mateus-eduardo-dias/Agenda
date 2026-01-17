@@ -13,7 +13,7 @@ export function checkAuthInput(body, isRegister) {
 
     const body_trim = {
         firstName: body.firstName.trim(),
-        lastName: body.firstName.trim(),
+        lastName: body.lastName.trim(),
         email: body.email.trim(),
     }
 
@@ -59,7 +59,7 @@ export function generateRefreshToken() {
 
 export function generateAccessToken(uid, email, exp) {
     try {
-        const token = jwt.sign({email, exp}, env.PRIVATE_KEY, {algorithm: 'RS256', issuer: 'agenda-server', subject: uid});
+        const token = jwt.sign({email, exp}, env.PRIVATE_KEY, {algorithm: 'RS256', issuer: 'agenda-server', subject: uid.toString()});
         return {status: true, token}
     } catch (err) {
         return {status: false, error: err}

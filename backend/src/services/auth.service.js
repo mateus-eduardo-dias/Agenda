@@ -11,7 +11,7 @@ export async function createClient() {
 
 export async function createUser(client, firstName, lastName, email, password) {
     try {
-        const r = await client.query("INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2) RETURNING *", [firstName, lastName, email, password]);
+        const r = await client.query("INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2, $3, $4) RETURNING *", [firstName, lastName, email, password]);
         return {status: true, row: r.rows[0]}
     } catch (err) {
         if (err.code == "23505") {
@@ -23,7 +23,7 @@ export async function createUser(client, firstName, lastName, email, password) {
 
 export async function storeRefreshToken(client, token, uid, expire_at) {
     try {
-        const r = await client.query("INSERT INTO tokens (token, user_id, expire_at) VALUES ($1, $2, $3) RETURNING *", [token, uid, expire_at]);
+        const r = await client.query("INSERT INTO tokens (token, user_id, expire_at) VALUES ($1, $2, TO_TIMESTAMP($3)) RETURNING *", [token, uid, expire_at]);
         return {status: true, row: r.rows[0]}
     } catch (err) {
         if (err.code == "23505") {

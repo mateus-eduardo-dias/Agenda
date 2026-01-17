@@ -10,10 +10,17 @@ export async function registerAction({request}) {
         cpassword: formData.get('cpassword'),
     }
     
-    const res = await fetch('/api/v1/register', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: userInput})
+    const res = await fetch('/api/v1/register', {method: 'POST', credentials: 'include', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(userInput)})
     console.log(res.status);
-    const data = await res.json();
-    console.log(data);
+    console.log('fetching')
+    console.log(res)
+    if (res.status != 201) {
+        const data = await res.json()
+        console.log(data);
+    }
+    console.log('post-fetch')
+    
+    console.log('being redirected')
     return redirect('/request-made')
 
 }
