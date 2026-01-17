@@ -3,6 +3,8 @@ import { redirect } from "react-router-dom";
 export async function registerAction({request}) {
     const formData = await request.formData();
     const userInput = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
         email: formData.get('email'),
         password: formData.get('password'),
         cpassword: formData.get('cpassword'),

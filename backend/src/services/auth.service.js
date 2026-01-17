@@ -1,18 +1,17 @@
 import db from '../config/db.js'
 
 export async function createClient() {
-    return await db.connect()
-}
-
-export async function findRefreshToken(client, token) {
-    client.query('SELECT * FROM tokens WHERE token = $1', [token], (err, res) => {
-        // TODO: Complete here
-    });
-}
-
-export async function createUser(client, email, password) {
     try {
-        const r = await client.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *", [email, password]);
+        return {status: true, client: await db.connect()}
+    } catch (err) {
+        return {status: false, error: err.code}
+    }
+    
+}
+
+export async function createUser(client, firstName, lastName, email, password) {
+    try {
+        const r = await client.query("INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2) RETURNING *", [firstName, lastName, email, password]);
         return {status: true, row: r.rows[0]}
     } catch (err) {
         if (err.code == "23505") {

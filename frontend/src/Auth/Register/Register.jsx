@@ -20,6 +20,12 @@ export default function Register() {
             <article>
                 <h2 className="fira-sans-bold">Create your Agenda account</h2>
                 <Form action="/register" method="POST">
+                    <div className="form-grid">
+                        <label className="space-grotesk-regular" htmlFor="firstName" id="firstNameLabel">First Name</label>
+                        <input name="firstName" type="text" id="firstName"/>
+                        <label className="space-grotesk-regular" htmlFor="lastName" id="lastNameLabel">Last Name</label>
+                        <input name="lastName" type="text" id="lastName"/>
+                    </div>
                     <label className="space-grotesk-regular" htmlFor="email">Email</label>
                     <input name="email" type="email" id="email"/>
                     <label className="space-grotesk-regular" htmlFor="password">Password</label>

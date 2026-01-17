@@ -17,6 +17,29 @@ article h2 {
     margin-top: 0;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+}
+
+#firstName {
+    grid-row: 2/2;
+    grid-column: 1/1;
+}
+#firstNameLabel {
+    grid-area: 1/1/1/1;
+}
+#lastName {
+    grid-row: 2/2;
+    grid-column: 2/2;
+}
+#lastNameLabel {
+    grid-row: 1/1;
+    grid-column: 2/2;
+}
+
+
 form label {
     display: block;
 }
@@ -26,10 +49,11 @@ form input {
     font-size: 18px;
     margin-top: 3px;
     margin-bottom: 12px;
+    margin-right: 10px;
 }
 
 input {
-    width: calc(100% - 24px)
+    width: calc(100% - 34px)
 }
 
 button {
