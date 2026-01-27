@@ -12,15 +12,15 @@ export async function registerAction({request}) {
     
     const res = await fetch('/api/v1/register', {method: 'POST', credentials: 'include', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(userInput)})
     console.log(res.status);
-    console.log('fetching')
-    console.log(res)
-    if (res.status != 201) {
-        const data = await res.json()
-        console.log(data);
+
+    if (res.status == 201) {
+        return redirect('/dashboard')
     }
-    console.log('post-fetch')
+
+    const data = await res.json()
+    console.log(data);
+
+    return {status: res.status, data}
     
-    console.log('being redirected')
-    return redirect('/request-made')
 
 }

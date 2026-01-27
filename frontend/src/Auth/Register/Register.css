@@ -1,15 +1,48 @@
 section {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
-article {
+.article-main {
     border: 3px solid var(--primary-color);
     border-radius: 15px;
     padding: 10px;
     flex-basis: 50%;
     box-shadow: 10px 10px 5px 0px;
+}
+
+#error-container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.error-block {
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    line-height: 1;
+    font-size: 18px;
+    background-color: #ff3131;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.error-block > span {
+    flex-grow: 1;
+}
+
+#error-container {
+    flex-wrap: wrap;
+    display: block;
 }
 
 article h2 {
@@ -81,17 +114,26 @@ form svg:hover {
 }
 
 @media (max-width: 640px) {
-    article {
+    .article-main {
         flex-basis: 80%;
+    }
+    .error-block {
+        width: 80%;
     }
 }
 @media (max-width: 480px) {
-    article {
+    .article-main {
         flex-basis: 100%;
+    }
+    .error-block {
+        width: 100%;
     }
 }
 @media (min-width: 1080px) {
-    article {
+    .article-main {
         flex-basis: 30%;
+    }
+    .error-block {
+        width: 30%;
     }
 }

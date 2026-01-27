@@ -41,6 +41,8 @@ export function checkAuthInput(body, isRegister) {
     return {valid: true, body: body_trim}
 }
 
+// TODO: Switch to argon2id instead of bcrypt
+
 export async function hashPassword(password) {
     try {
         return {status: true, hash: await bcrypt.hash(password, 12)};

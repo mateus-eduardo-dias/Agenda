@@ -1,11 +1,12 @@
 import { Form, useActionData } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import ErrorBlock from './ErrorBlock.jsx'
 import './Register.css'
 
 export default function Register() {
 
-    const error = useActionData();
+    const actionData = useActionData();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -13,11 +14,13 @@ export default function Register() {
         setShowPassword(sp => !sp);
     }
 
+    // TODO: Terminar o actionData
+
     return (
         <>
         <h1 className="space-grotesk-bold">Join Agenda today</h1>
         <section>
-            <article>
+            <article className="article-main">
                 <h2 className="fira-sans-bold">Create your Agenda account</h2>
                 <Form action="/register" method="POST">
                     <div className="form-grid">
@@ -35,6 +38,11 @@ export default function Register() {
                     <input name="cpassword" type="password" id="cpassword" />
                     <button type="submit" className="fira-sans-regular">Register</button>
                 </Form>
+            </article>
+            <article id="error-container">
+                {
+                    actionData?.data?.errors?.map(err => <ErrorBlock text={err}/>)
+                }
             </article>
         </section>
         </>
